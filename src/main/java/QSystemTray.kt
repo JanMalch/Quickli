@@ -50,7 +50,7 @@ class QSystemTray(jsonTray: JsonTray) {
 
         popup.addSeparator()
         if (jsonTray.showDefaults == null || jsonTray.showDefaults) {
-            setupDefaults()
+            setupDefaults(popup)
         }
         popup.add("Exit") {
             exit()
@@ -59,12 +59,12 @@ class QSystemTray(jsonTray: JsonTray) {
         return popup
     }
 
-    private fun setupDefaults() {
-        popup?.add("Edit entries") {
+    private fun setupDefaults(popup: PopupMenu) {
+        popup.add("Edit entries") {
             Desktop.getDesktop().open(File(IOManager.root))
         }
 
-        popup?.add("About Quickli") {
+        popup.add("About Quickli") {
             Desktop.getDesktop().browse(URI("https://github.com/JanMalch/Quickli"))
         }
     }
