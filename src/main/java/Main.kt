@@ -9,7 +9,9 @@ object TrayIconDemo {
             throw Exception("SystemTray is not supported")
         }
 
-        IOManager().getAllFiles()
+        val io = IOManager()
+        io.ensure()
+        io.getAllFiles()
                 .map { it.absolutePath }
                 .map {
                     println("- $it")

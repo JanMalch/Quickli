@@ -1,9 +1,6 @@
 package main
 
-import com.google.gson.Gson
-import com.google.gson.stream.JsonReader
 import java.io.File
-import java.io.FileReader
 import java.util.*
 import kotlin.streams.toList
 
@@ -15,13 +12,37 @@ class IOManager {
         val defaultImg = "images/icon.png"
     }
 
-    // val root = """${System.getenv("APPDATA")}${File.separator}Quickli${File.separator}"""
-    private val fileName = "menu.json"
-    private val filePath = root + fileName
-    val file = File(filePath)
-
     fun getAllFiles(): List<File> {
         return Arrays.stream(File(root).listFiles()).filter { it.isFile }.toList()
+    }
+
+    fun ensure() {
+        ensureDir(root)
+        ensureDir(images)
+        ensureDummyFile("example.json")
+    }
+
+    private fun ensureDir(path: String) {
+        val dir = File(path)
+        if (!dir.exists()) {
+            dir.mkdir()
+        }
+    }
+
+    private fun ensureDummyFile(path: String) {
+        val file = File(root + path)
+        if (!file.exists()) {
+            file.writeText("""
+{
+   "label":"Quickli",
+   "content":[
+      {
+         "title":"Click 'About Quickli' to find examples"
+      }
+   ]
+}
+        """.trimIndent())
+        }
     }
 
 }
