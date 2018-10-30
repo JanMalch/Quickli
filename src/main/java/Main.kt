@@ -4,6 +4,8 @@ import java.awt.Desktop
 import java.awt.PopupMenu
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
+import java.io.File
+import java.io.IOException
 import java.net.URI
 import javax.swing.SwingUtilities
 import javax.swing.UIManager
@@ -35,7 +37,14 @@ object TrayIconDemo {
         popup.addSeparator()
 
         popup.add("Edit entries") {
-            Desktop.getDesktop().open(io.file)
+            try {
+                Desktop.getDesktop().edit(io.file)
+                // Desktop.getDesktop().open(io.file)
+            } catch (e: IOException) {
+                val pb = ProcessBuilder("Notepad.exe", io.file.absolutePath)
+                pb.start()
+            }
+
         }
 
         popup.add("About Quickli") {

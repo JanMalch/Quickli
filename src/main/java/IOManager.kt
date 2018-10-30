@@ -19,6 +19,10 @@ class IOManager {
     }
 
     private fun ensure() {
+        val dir = File(root)
+        if (!dir.exists()) {
+            dir.mkdir()
+        }
         if (!file.exists()) {
             file.createNewFile()
             file.writeText("[]")
