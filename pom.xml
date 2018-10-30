@@ -68,7 +68,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>Quickly</finalName>
+                            <finalName>Quickli</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <archive>
                                 <manifest>
