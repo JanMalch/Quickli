@@ -11,20 +11,24 @@ data class QMenu(val title: String,
                  val separator: Boolean = false) {
 
     fun toMenuItem(): MenuItem {
-        return if (children != null) {
-            val menuItem = Menu(title)
-            children.stream().forEach { menuItem.add(it) }
-            menuItem
-        } else {
-            val menuItem = MenuItem(title)
-            menuItem.addActionListener {
-                if (directory != null) {
-                    Runtime.getRuntime().exec(command, null, File(directory))
-                } else {
-                    Runtime.getRuntime().exec(command)
-                }
+        return when {
+            children != null -> {
+                val menuItem = Menu(title)
+                children.stream().forEach { menuItem.add(it) }
+                menuItem
             }
-            menuItem
+            command != null -> {
+                val menuItem = MenuItem(title)
+                menuItem.addActionListener {
+                    QCommand(command, null, directory).execute()
+                }
+                menuItem
+            }
+            else -> {
+                val menuItem = MenuItem(title)
+                menuItem.isEnabled = false
+                menuItem
+            }
         }
     }
 }
