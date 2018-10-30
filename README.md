@@ -45,6 +45,7 @@ Download latest `Quickli.jar` file from [releases](https://github.com/JanMalch/Q
 {
   "label": "Android Studio",
   "image": "Android_Studio_icon.png",
+  "showDefaults": false,
   "leftClick": {
     "command": "C:/Program Files/Android/Android Studio/bin/studio64.exe",
     "directory": "C:/Program Files/Android/Android Studio/bin"
