@@ -1,9 +1,13 @@
 # Quickli
 
-A small Kotlin program to create a custom tray program.
+A small Java (Kotlin) program to create a custom tray program.
 
 Use at your own risk. Other people with access to your computer could change the commands to execute harmful actions.
 This tool is still in development. It's easy to break if you want it to. Please only write valid JSON.
+
+## Install
+
+Download latest `Quickli.jar` file from [releases](https://github.com/JanMalch/Quickli/releases) and put it in your autostart (Win+R: `shell:startup`).
 
 ## Example File
 
