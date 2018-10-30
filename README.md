@@ -34,6 +34,9 @@ Download latest `Quickli.jar` file from [releases](https://github.com/JanMalch/Q
                "title":"dataiku",
                "command":"C:/Program Files/Oracle/VirtualBox/VBoxManage.exe startvm dataiku-dss-5.0.2",
                "directory":"C:/Program Files/Oracle/VirtualBox"
+            },
+            {
+               "title": "This is disabled"
             }
          ]
       }
