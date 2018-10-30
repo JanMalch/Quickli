@@ -9,16 +9,14 @@ object TrayIconDemo {
             throw Exception("SystemTray is not supported")
         }
 
-        val files = IOManager().getAllFiles()
+        IOManager().getAllFiles()
                 .map { it.absolutePath }
-
-        println("Found: ")
-        files.map {
-            println("- $it")
-            val t = Thread { execJavaClass(QTrayProcess::class.java, it) }
-            t.start()
-            t
-        }.forEach { it.join() }
+                .map {
+                    println("- $it")
+                    val t = Thread { execJavaClass(QTrayProcess::class.java, it) }
+                    t.start()
+                    t
+                }.forEach { it.join() }
     }
 
 }
