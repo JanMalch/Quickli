@@ -31,7 +31,7 @@ class IOManager {
 
     private fun ensureDummyFile(path: String) {
         val file = File(root + path)
-        if (!file.exists()) {
+        if (getAllFiles().isEmpty()) {
             file.writeText("""
 {
    "label":"Quickli",
