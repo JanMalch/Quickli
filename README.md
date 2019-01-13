@@ -7,9 +7,47 @@ This tool is still in development. It's easy to break if you want it to. Please 
 
 ## Install
 
-Download latest `Quickli.jar` file from [releases](https://github.com/JanMalch/Quickli/releases) and put it in your autostart (Win+R: `shell:startup`).
+Download latest `Quickli.jar` file from [releases](https://github.com/JanMalch/Quickli/releases), put it in your autostart (Win+R: `shell:startup`) and run it.
+A new tray icon will appear, that helps you getting started.
 
-## Example File
+## Usage
+
+All tray programs are configured via json files in `AppData\Roaming\Quickli`.
+To create a tray icon you have to add a json file there. The schema looks like this:
+
+```json
+{
+   "label": "My first tray program",
+   "showDefaults": true, // adds "About" and "Edit Entries" buttons, defaults to true
+   "image": "my-icon.png", // has to be in `AppData\Roaming\Quickli\images`
+   "content": [<Menu>], // the contents of your tray icon
+   "leftClick": <Command>, // optional, if not specified the content menu will open
+}
+```
+##### Menu
+```json
+{
+   "title": "My first menu entry",
+   "children": [<Menu>], // optional
+   "command": "explorer.exe /n,C:\\Temp\\my_favorite_file.txt", // optional
+   "directory": "", // optional
+   "separator": false // optional, entry acts as a separator in the tray menu
+}
+```
+
+##### Command
+
+```json
+{
+   "command": "path/to/my.exe",
+   "directory": "path/to",
+   "envp": ["path optional env parameters"]
+}
+```
+
+## Examples 
+
+Example with nested menus and separators
 
 ```json
 {
@@ -44,6 +82,10 @@ Download latest `Quickli.jar` file from [releases](https://github.com/JanMalch/Q
 }
 ```
 
+---
+
+Open a program with left click, but show the menu on right click.
+
 ```json
 {
   "label": "Android Studio",
@@ -58,6 +100,38 @@ Download latest `Quickli.jar` file from [releases](https://github.com/JanMalch/Q
       "title": "Android Studio",
       "command": "C:/Program Files/Android/Android Studio/bin/studio64.exe",
       "directory": "C:/Program Files/Android/Android Studio/bin"
+    }
+  ]
+}
+```
+
+---
+
+You can create trays for programs that you wish had one:
+
+```json
+{
+  "label": "VirtualBox VMs",
+  "showDefaults": false,
+  "image": "VirtualBox-icon.png",
+  "content": [
+    {
+      "title": "VirtualBox",
+      "command": "C:/Program Files/Oracle/VirtualBox/VirtualBox.exe",
+      "directory": "C:/Program Files/Oracle/VirtualBox"
+    },
+    {
+      "separator": true
+    },
+    {
+      "title": "Kali Linux",
+      "command": "C:/Program Files/Oracle/VirtualBox/VBoxManage.exe startvm Kali-Linux-2018.4-vbox-amd64",
+      "directory": "C:/Program Files/Oracle/VirtualBox"
+    },
+    {
+      "title": "dataiku",
+      "command": "C:/Program Files/Oracle/VirtualBox/VBoxManage.exe startvm dataiku-dss-5.0.2",
+      "directory": "C:/Program Files/Oracle/VirtualBox"
     }
   ]
 }
