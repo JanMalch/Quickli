@@ -15,7 +15,7 @@ A new tray icon will appear, that helps you getting started.
 All tray programs are configured via json files in `AppData\Roaming\Quickli`.
 To create a tray icon you have to add a json file there. The schema looks like this:
 
-```json
+```
 {
    "label": "My first tray program",
    "showDefaults": true, // adds "About" and "Edit Entries" buttons, defaults to true
@@ -25,7 +25,7 @@ To create a tray icon you have to add a json file there. The schema looks like t
 }
 ```
 ##### Menu
-```json
+```
 {
    "title": "My first menu entry",
    "children": [<Menu>], // optional
@@ -136,3 +136,6 @@ You can create trays for programs that you wish had one:
   ]
 }
 ```
+
+![quickli virtual box tray icon](https://user-images.githubusercontent.com/25508038/51085582-f3110900-173b-11e9-9b5f-16dde24e5ad5.png)
+![quickli virtual box menu](https://user-images.githubusercontent.com/25508038/51085586-f906ea00-173b-11e9-8831-e0e488717cbb.png)
