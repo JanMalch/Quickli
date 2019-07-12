@@ -7,6 +7,7 @@ import java.io.File
 import java.net.URI
 import javax.imageio.ImageIO
 import javax.swing.ImageIcon
+import kotlin.system.exitProcess
 
 class QSystemTray(jsonTray: JsonTray) {
 
@@ -17,23 +18,20 @@ class QSystemTray(jsonTray: JsonTray) {
     private val defaultImage: Image =
             ImageIcon(this::class.java.classLoader.getResource(IOManager.defaultImg), "tray icon").image
 
-    private var popup: PopupMenu? = null
+    private val popup: PopupMenu?
         get() = trayIcon.popupMenu
 
     init {
-        val img = if (jsonTray.image != null) createImage(jsonTray.image) else defaultImage
-        trayIcon = TrayIcon(img)
-        trayIcon.apply {
+        val img = jsonTray.image?.let(this::createImage) ?: defaultImage
+
+        trayIcon = TrayIcon(img).apply {
             isImageAutoSize = true
             toolTip = jsonTray.label
             addMouseListener(object : MouseAdapter() {
                 override fun mouseClicked(e: MouseEvent) {
                     if (e.button == MouseEvent.BUTTON1) {
-                        if (jsonTray.leftClick != null) {
-                            jsonTray.leftClick.execute()
-                        } else {
-                            openPopup(e)
-                        }
+                        jsonTray.leftClick?.execute()
+                                ?: openPopup(e)
                     }
                 }
             })
@@ -49,7 +47,7 @@ class QSystemTray(jsonTray: JsonTray) {
         jsonTray.content.forEach { popup.add(it) }
 
         popup.addSeparator()
-        if (jsonTray.showDefaults == null || jsonTray.showDefaults) {
+        if (jsonTray.showDefaults != false) {
             setupDefaults(popup)
         }
         popup.add("Exit") {
@@ -76,7 +74,7 @@ class QSystemTray(jsonTray: JsonTray) {
 
     fun exit() {
         tray.remove(trayIcon)
-        System.exit(0)
+        exitProcess(0)
     }
 
     private fun createImage(name: String): Image? {
